@@ -55,8 +55,8 @@ quiz_is_on = True
 
 
 while quiz_is_on:
-    for player_index in range(len(players)-1):
-        print({player_index})
+    for player_index in range(0,len(players)):
+        print(f'{player_index}')
         while quiz.still_has_step():
             quiz.next_question()
             quiz.next_step()
