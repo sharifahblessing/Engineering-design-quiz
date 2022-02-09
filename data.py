@@ -33,11 +33,7 @@ question_data = {
                 "correct_answer": "They all simplify life or solve a problem" ,
                 "wrong_answers": ["They all use electricity to work" ]
             },
-            {
-                "question_text": "What are technologies?" ,
-                "correct_answer": "To find out if lack of electricity is a serious problem " ,
-                "wrong_answers": ["To find out if we have other sources of energy " ]
-            },
+
 
         ],
         "Create": [

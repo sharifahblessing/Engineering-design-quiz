@@ -55,12 +55,14 @@ quiz_is_on = True
 
 
 while quiz_is_on:
-    for player_index in range(0,len(players)):
-        print(f'{player_index}')
+    for player_index in range(int(number_of_players)):
+        print(f'{players[player_index]}, it is your turn')
         while quiz.still_has_step():
             quiz.next_question()
             quiz.next_step()
-            player_index += 1
+        if player_index != int(number_of_players)-1:
+            quiz.reset_quiz()
+        print(f'Thank you, {players[player_index]}')
     quiz_is_on = False
 
 
