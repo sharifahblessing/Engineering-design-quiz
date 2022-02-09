@@ -29,6 +29,9 @@ class QuizBrain:
             self.print_question(current_question_list)
 
     def print_question(self, current_question_list):
+        """ It takes a current_question_list as an argument checks if the first generated index is not equal
+        to the ref_id the question is generated.The generated question index is set as a reference_id else
+         the function is recursed to regenerate the indexes."""
         first_index_generated = random.randint(0, len(current_question_list) - 1)
         if first_index_generated != self.ref_id:
             current_question = current_question_list[first_index_generated]
