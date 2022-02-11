@@ -3,6 +3,7 @@ from data import question_data
 from turtle import Screen
 from question import Question
 from quiz_brain import QuizBrain
+from player import Player
 
 
 # Todo Utilise turtle graphics module : screen input title(Engineering design steps Yiya game) prompt"Welcome to the
@@ -14,16 +15,8 @@ screen.screensize(canvwidth = 800, canvheight = 800)
 number_of_players = screen.textinput(title = "Engineering design quiz", prompt = "How many players do we have?")
 screen.title("Engineering design game")
 
+
 print(f"Welcome to the Yiya Engineering design quiz, We have {number_of_players} players ")
-
-# Prompting the named number of players to enter there names
-players = []
-for player_index in range(int(number_of_players)):
-    player_index += 1
-    name_of_player = input(f"Player number {player_index} please register your name? ")
-    players.append(name_of_player)
-
-print(f"{','.join(players)},Please get ready to answer the quiz! ")
 
 # Todo.  Have a data file with a dictionary  with engineering design steps as keys and a dictionary of
 #  dictionaries of questions  as the values.The questions dictionary consist of question text, correct answer
@@ -49,20 +42,45 @@ for step in question_data:
     main_question_bank.append(step_question_bank_dictionary)
 # print(main_question_bank)
 
+# Prompting the named number of players to enter there names
+players = []
+for player_index in range(int(number_of_players)):
+    player_index += 1
+    name_of_player = input(f"Player number {player_index} please register your name? ")
+    player_instance = Player(player_name = name_of_player, examined_step_list = steps_examined)
+    players.append(player_instance)
+
+# print(f"{','.join(players)},Please get ready to answer the quiz! ")
+
 quiz = QuizBrain(quiz_questions = main_question_bank, steps_examined_list = steps_examined)
 
 quiz_is_on = True
 
+step_examined_ids = []
+for step in steps_examined:
+    step_examined_id = steps_examined.index(step)
+    step_examined_ids.append(step_examined_id)
+
 
 while quiz_is_on:
     for player_index in range(int(number_of_players)):
-        print(f'{players[player_index]}, it is your turn')
+        print(f'{players[player_index].get_player_name()}, it is your turn')
+        quiz.set_player(players[player_index])
         while quiz.still_has_step():
-            quiz.next_question()
-            quiz.next_step()
+            for step_id in step_examined_ids:
+                print(steps_examined[step_id])
+                quiz.next_question()
+                quiz.next_step()
+        # quiz.displaying_step_score()
         if player_index != int(number_of_players)-1:
             quiz.reset_quiz()
-        print(f'Thank you, {players[player_index]}')
+        print(f'Thank you, {players[player_index].get_player_name()}')
+
+    final_score = {}
+    for player_index in range(int(number_of_players)):
+        final_score[players[player_index].get_player_name()] = players[player_index].get_player_score()
+    print(final_score)
+
     quiz_is_on = False
 
 
